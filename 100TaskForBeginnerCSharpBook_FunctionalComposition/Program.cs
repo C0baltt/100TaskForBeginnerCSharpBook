@@ -68,13 +68,13 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
                 }
 
                 int id = 0;
-                if(!MapParametr(rawData, out id, BuyGoodParameter.Id))
+                if(!MapParameter(rawData, out id, BuyGoodParameter.Id))
                 {
                     return;
                 }
 
                 int count = 0;
-                if (!MapParametr(rawData, out count, BuyGoodParameter.Count))
+                if (!MapParameter(rawData, out count, BuyGoodParameter.Count))
                 {
                     return;
                 }
@@ -149,10 +149,10 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
             return result;
         }
 
-        private static bool MapParametr(string[] rawParams, out int containter, BuyGoodParameter parameter)
+        private static bool MapParameter(string[] rawParams, out int containter, BuyGoodParameter parameter)
         {
             int index = (int)parameter;
-            string name = Enum.GetName(typeof(BuyGoodPfrfmeter), parameter);
+            string name = Enum.GetName(typeof(BuyGoodParameter), parameter);
 
             if (!int.TryParse(rawParams[index], out containter))
             {
