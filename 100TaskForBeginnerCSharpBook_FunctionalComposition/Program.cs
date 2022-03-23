@@ -4,14 +4,12 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
 {
     class Program
     {
-
         private static int balance = 0;
         private static int[] coinsQuantity = { 0, 0, 0, 0 };
         private static int[] coinsValues = { 1, 2, 5, 10 };
         private static string[] names = { "Шоколадка", "Газировка" };
         private static int[] prices = { 70, 60 };
         private static PaymentType payment = PaymentType.Card;
-
 
         static void Main(string[] args)
         {
@@ -24,8 +22,13 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
                 ExecuteCommand(command);
 
                 Console.ReadKey();
-
             }
+        }
+
+        private static string ReadCommand()
+        {
+            Console.WriteLine("Введите команду");
+            return Console.ReadLine();
         }
 
         private static void ExecuteCommand(string command)
@@ -37,7 +40,7 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
                     case PaymentType.Coins:
                         for (int i = 0; i < coinsValues.Length; i++)
                         {
-                            Console.WriteLine($"Сколько монет номиналом {coinsValues[i]} вы хотите внести");
+                            Console.WriteLine($"Сколько монет номиналом {coinsValues[i]} вы хотите внести?");
                             int count = ReadInt();
                             coinsQuantity[i] += count;
                             balance += count * coinsValues[i];
@@ -48,6 +51,8 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
                         int balanceDelta = ReadInt();
                         balance += balanceDelta;
                         Console.WriteLine("Баланс успешно пополнен");
+                        break;
+                    default:
                         break;
                 }
             }
@@ -120,7 +125,7 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
             }
         }
 
-        private static int GetPrice(int id)
+        private static int GetName(int id)
         {
             ValidateId(id);
             return names[id];
@@ -129,7 +134,18 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
         private static int GetPrice(int id)
         {
             ValidateId(id);
-            return avalibleQuantity[id];
+            return prices[id];
+        }
+
+        private static int GetAvailableQuantity(int id)
+        {
+            ValidateId(id);
+            return availableQuantity[id];
+        }
+
+        private static bool IsAvailableInQuantity(int id, int count)
+        {
+            return count < 0 || count > GetAvailableQuantity(id);
         }
 
         private static int GetTotalPrice(int price, int count)
