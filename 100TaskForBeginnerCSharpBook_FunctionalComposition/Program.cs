@@ -9,6 +9,7 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
         private static int[] coinsValues = { 1, 2, 5, 10 };
         private static string[] names = { "Шоколадка", "Газировка" };
         private static int[] prices = { 70, 60 };
+        private static int[] availableQuantity = { 70, 60 };
         private static PaymentType payment = PaymentType.Card;
 
         static void Main(string[] args)
@@ -34,7 +35,7 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
         private static void ExecuteCommand(string command)
         {
             if (command == "AddMoney")
-            { 
+            {
                 switch (payment)
                 {
                     case PaymentType.Coins:
@@ -73,7 +74,7 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
                 }
 
                 int id = 0;
-                if(!MapParameter(rawData, out id, BuyGoodParameter.Id))
+                if (!MapParameter(rawData, out id, BuyGoodParameter.Id))
                 {
                     return;
                 }
@@ -91,7 +92,7 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
                     return;
                 }
 
-                if(!IsAvalableInQuantity(id, count))
+                if (!IsAvailableInQuantity(id, count))
                 {
                     Console.WriteLine("Нет такого количества");
                     return;
@@ -99,11 +100,11 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
 
                 //Выполнение
                 int totalPrice = GetTotalPrice(GetPrice(id), count);
-                
+
                 if (balance >= totalPrice)
                 {
                     balance -= totalPrice;
-                    avalibleQuantity[id] -= count;
+                    availableQuantity[id] -= count;
                 }
             }
             else
@@ -125,7 +126,7 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
             }
         }
 
-        private static int GetName(int id)
+        private static string GetName(int id)
         {
             ValidateId(id);
             return names[id];
@@ -175,12 +176,14 @@ namespace _100TaskForBeginnerCSharpBook_FunctionalComposition
                 Console.WriteLine($"Ошибка в параметре {name}, он должен быть числом");
                 return false;
             }
+            return true;
         }
-        enum BuyGoodParameter
-        {
-            Id = 0,
-            Count = 1
-        }
+    }
+
+    enum BuyGoodParameter
+    {
+        Id = 0,
+        Count = 1
     }
 
     enum PaymentType
